@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  mysqldb3:
+    container_name: mysqldb3
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: fotball-db
+      MYSQL_ROOT_PASSWORD: hbstudent
+      MYSQL_PASSWORD: hbstudent
+      MYSQL_USER: hbstudent
+    volumes:
+      - C:\GitRepositories\rest.api.remastered\be-tools\db\init.sql:/docker-entrypoint-initdb.d/init.sql
+      - C:\GitRepositories\rest.api.remastered\be-tools/db/init2.sql:/docker-entrypoint-initdb2.d/init2.sql
+
+    ports:
+      - "3306:3306"
+  myapp:
+    container_name: restAPI
+    build:
+      context: .
+    ports:
+      - "8083:8083"
+    depends_on:
+      - mysqldb3
+        
+        
+
+
+
+
+

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+<!--    <changeSet author="christian" id="1">-->
+<!--        <sql dbms="postgresql" endDelimiter=";">-->
+<!--            CREATE SCHEMA fotball-db-->
+<!--        </sql>-->
+<!--    </changeSet>-->
+    <!-- Insert SQL statements directly within Liquibase -->
+    <changeSet id="insert-sql-statements" author="stefan">
+        <sql>
+            <![CDATA[
+            CREATE TABLE round (
+                                   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                   date VARCHAR(30),
+                                   number INT
+            );
+
+            CREATE TABLE  player (
+                                    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                    first_name VARCHAR(40),
+                                    last_name VARCHAR(40),
+                                    grade INT
+            );
+
+            CREATE TABLE team (
+                                  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                  color VARCHAR(30),
+                                  points INT,
+                                  goal_rate INT,
+                                  round_id INT,
+                                  FOREIGN KEY (round_id) REFERENCES round(id)
+            );
+
+            CREATE TABLE team_player (
+                                         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                         team_id INT NOT NULL,
+                                         player_id INT NOT NULL,
+                                         FOREIGN KEY (team_id) REFERENCES team(id),
+                                         FOREIGN KEY (player_id) REFERENCES player(id)
+            );
+
+            CREATE TABLE game(
+                                 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                 number INT NOT NULL,
+                                 team1_id INT,
+                                 team2_id INT,
+                                 team1_goals INT,
+                                 team2_goals INT,
+                                 round_id INT,
+                                 FOREIGN KEY (round_id) REFERENCES round(id),
+                                 FOREIGN KEY (team1_id) REFERENCES team(id),
+                                 FOREIGN KEY (team2_id) REFERENCES team(id)
+            );
+            CREATE TABLE goal (
+                                  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                  game_id INT,
+                                  player_id INT,
+                                  FOREIGN KEY (game_id) REFERENCES game(id),
+                                  FOREIGN KEY (player_id) REFERENCES player(id)
+            );
+
+            ]]>
+        </sql>
+    </changeSet>
+
+    <!-- Define additional changeSets for other database operations if needed -->
+
+</databaseChangeLog>
