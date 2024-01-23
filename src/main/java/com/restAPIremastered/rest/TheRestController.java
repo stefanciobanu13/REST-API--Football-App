@@ -64,6 +64,15 @@ public class TheRestController {
         return playerService.findPlayerByName(firstName, lastName);
     }
 
+    @GetMapping("/players/byRoundId/{roundId}")
+    public List<RoundPlayerDTO> findPlayersByRoundId(@PathVariable int roundId){
+        return this.playerService.findRoundPlayersByRoundId(roundId);
+    }
+
+    @GetMapping("/players/scorersByRoundId/{roundId}")
+    public List<ScorerDTO> findScorersByRoundId(@PathVariable int roundId){
+        return this.playerService.findPlayerScoresByRoundId(roundId);
+    }
 
     @GetMapping("/rounds")
     public List<RoundDTO> getRounds() {
@@ -153,6 +162,11 @@ public class TheRestController {
     @GetMapping("/games/{gameId}")
     public GameDTO getGame(@PathVariable int gameId) {
         return gameService.getGame(gameId);
+    }
+
+    @GetMapping("/games/byRoundId/{roundId}")
+    public List<GameInfoDTO> getGamesByRoundNr(@PathVariable int roundId){
+        return gameService.getGamesByRoundId(roundId);
     }
 
     @DeleteMapping("/games/{gameId}")

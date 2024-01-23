@@ -1,5 +1,7 @@
 package com.restAPIremastered.service.impl;
 
+import com.restAPIremastered.persistance.dto.RoundPlayerDTO;
+import com.restAPIremastered.persistance.dto.ScorerDTO;
 import com.restAPIremastered.persistance.entity.Player;
 import com.restAPIremastered.persistance.repository.PlayerRepository;
 import com.restAPIremastered.service.PlayerService;
@@ -56,7 +58,15 @@ public class PlayerServiceImp implements PlayerService {
 		return player;
 	}
 
+	@Transactional
+	@Override
+	public List<RoundPlayerDTO> findRoundPlayersByRoundId(int roundId) {
+		return playerRepository.findRoundPlayersByRoundId(roundId);
+	}
 
-
+	@Override
+	public List<ScorerDTO> findPlayerScoresByRoundId(int roundId) {
+		return playerRepository.findPlayerScoresByRoundId(roundId);
+	}
 
 }

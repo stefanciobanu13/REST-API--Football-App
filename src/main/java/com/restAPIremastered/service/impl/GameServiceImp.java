@@ -1,5 +1,6 @@
 package com.restAPIremastered.service.impl;
 import com.restAPIremastered.persistance.dto.GameDTO;
+import com.restAPIremastered.persistance.dto.GameInfoDTO;
 import com.restAPIremastered.persistance.entity.Game;
 import com.restAPIremastered.persistance.repository.GameRepository;
 import com.restAPIremastered.service.GameService;
@@ -51,5 +52,10 @@ public class GameServiceImp implements GameService {
     @Transactional
     public void deleteGame(int gameId) {
         gameRepository.deleteById(gameId);
+    }
+
+    @Override
+    public List<GameInfoDTO> getGamesByRoundId(int roundId) {
+        return gameRepository.getGamesInfoForRound(roundId);
     }
 }
