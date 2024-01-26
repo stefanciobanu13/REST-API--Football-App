@@ -16,7 +16,8 @@ public interface GameRepository extends JpaRepository<Game,Integer> {
             "FROM Game g " +
             "JOIN Team t1 ON g.team1.id = t1.id " +
             "JOIN Team t2 ON g.team2.id = t2.id " +
-            "WHERE g.round.id = :roundId")
+            "WHERE g.round.id = :roundId " +
+            "ORDER BY g.number ASC")
     List<GameInfoDTO> getGamesInfoForRound(@Param("roundId") int roundId);
 
 }

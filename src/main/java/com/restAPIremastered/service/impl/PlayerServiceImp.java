@@ -66,7 +66,7 @@ public class PlayerServiceImp implements PlayerService {
 
 	@Override
 	public List<ScorerDTO> findPlayerScoresByRoundId(int roundId) {
-		return playerRepository.findPlayerScoresByRoundId(roundId);
+		return playerRepository.findScorersByRoundId(roundId);
 	}
 
 }
