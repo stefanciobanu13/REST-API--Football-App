@@ -59,8 +59,12 @@
                                   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                   game_id INT,
                                   player_id INT,
+                                  team_id INT,
+                                  own_goal BOOLEAN DEFAULT false,
                                   FOREIGN KEY (game_id) REFERENCES game(id),
-                                  FOREIGN KEY (player_id) REFERENCES player(id)
+                                  FOREIGN KEY (player_id) REFERENCES player(id),
+                                  FOREIGN KEY (team_id) REFERENCES team(id)
+
             );
 
             ]]>

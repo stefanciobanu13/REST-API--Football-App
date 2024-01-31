@@ -19,12 +19,19 @@ public class Goal {
     @ManyToOne
     private Game game;
 
-  @Transient
-    private Team team;
+//  @Transient
+//    private Team team;
 
     @ManyToOne
     @JoinColumn(name = "player_id")
     private Player player;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+    @Column(name = "own_goal")
+    private boolean ownGoal;
 
     //constructors
 
@@ -36,6 +43,7 @@ public class Goal {
         this.team = team;
         this.player = player;
     }
+
 
     public Goal(Game game, Team team, Player player) {
         this.game = game;
@@ -50,6 +58,16 @@ public class Goal {
 
 
     //getters and setters
+
+    public boolean isOwnGoal() {
+        return ownGoal;
+    }
+
+    public void setOwnGoal(boolean ownGoal) {
+        this.ownGoal = ownGoal;
+    }
+
+
 
     public int getId() {
         return id;

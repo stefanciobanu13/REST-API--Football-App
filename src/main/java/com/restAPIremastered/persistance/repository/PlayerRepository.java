@@ -31,25 +31,17 @@ public interface PlayerRepository extends JpaRepository<Player,Integer> {
     List<RoundPlayerDTO> findRoundPlayersByRoundId(@Param("roundId") int roundId);
 
     @Query("SELECT new com.restAPIremastered.persistance.dto.ScorerDTO(" +
-            "CONCAT(p.firstName, ' ', p.lastName), " +
-            "gm.number, " +
-            "tm.color, " +
-            "COUNT(gl.id)) " +
-            "FROM Game gm " +
-            "JOIN gm.round r " +
-            "LEFT JOIN gm.team1 tm1 " +
-            "LEFT JOIN gm.team2 tm2 " +
-            "LEFT JOIN Team tm ON (tm1.id = tm.id OR tm2.id = tm.id) " +
-            "LEFT JOIN TeamPlayer tp ON tm.id = tp.team.id " +
-            "LEFT JOIN tp.player p " +
-            "LEFT JOIN Goal gl ON (p.id = gl.player.id AND gm.id = gl.game.id) " +
+            "CONCAT(p.firstName, ' ', p.lastName), g.number, tm.color, " +
+            "COUNT(distinct gl.id)) " +
+            "FROM Goal gl " +
+            "JOIN gl.game g " +
+            "JOIN g.round r " +
+            "JOIN gl.player p " +
+            "JOIN gl.team tm " +
             "WHERE r.id = :roundId " +
-            "GROUP BY p.id, r.id, gm.number " +
-            "HAVING COUNT(gl.id) > 0")
+            "GROUP BY p.id, r.id, g.number " +
+            "ORDER BY g.number ASC")
     List<ScorerDTO> findScorersByRoundId(@Param("roundId") int roundId);
-
-
-
 
 }
 
