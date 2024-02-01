@@ -39,9 +39,26 @@ public interface PlayerRepository extends JpaRepository<Player,Integer> {
             "JOIN gl.player p " +
             "JOIN gl.team tm " +
             "WHERE r.id = :roundId " +
+            "AND gl.ownGoal = false " +
             "GROUP BY p.id, r.id, g.number " +
             "ORDER BY g.number ASC")
     List<ScorerDTO> findScorersByRoundId(@Param("roundId") int roundId);
+
+
+    @Query("SELECT new com.restAPIremastered.persistance.dto.ScorerDTO(" +
+            "CONCAT(p.firstName, ' ', p.lastName), g.number, tm.color, " +
+            "COUNT(distinct gl.id)) " +
+            "FROM Goal gl " +
+            "JOIN gl.game g " +
+            "JOIN g.round r " +
+            "JOIN gl.player p " +
+            "JOIN gl.team tm " +
+            "WHERE r.id = :roundId " +
+            "AND gl.ownGoal = true " +  // Select only own goals
+            "GROUP BY p.id, r.id, g.number " +
+            "ORDER BY g.number ASC")
+    List<ScorerDTO> findOwnGoalsScorersByRoundId(@Param("roundId") int roundId);
+
 
 }
 

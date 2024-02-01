@@ -24,4 +24,5 @@ public interface PlayerService {
 	public List<RoundPlayerDTO> findRoundPlayersByRoundId(int roundId);
 
 	public List<ScorerDTO> findPlayerScoresByRoundId(int roundId);
+	public List<ScorerDTO> findOwnGoalsScorersByRoundId(int roundId);
 }

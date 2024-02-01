@@ -74,6 +74,11 @@ public class TheRestController {
         return this.playerService.findPlayerScoresByRoundId(roundId);
     }
 
+    @GetMapping("/players/ownGoalscorersByRoundId/{roundId}")
+    public List<ScorerDTO> findOwnGoalScorersByRoundId(@PathVariable int roundId){
+        return this.playerService.findOwnGoalsScorersByRoundId(roundId);
+    }
+
     @GetMapping("/rounds")
     public List<RoundDTO> getRounds() {
         System.out.println("inside the get ROUND method from controller");
