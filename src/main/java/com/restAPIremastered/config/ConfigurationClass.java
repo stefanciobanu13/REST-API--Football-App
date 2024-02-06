@@ -22,7 +22,7 @@ public class ConfigurationClass implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:4200", "http://127.0.0.1:5500")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("Origin", "Content-Type", "Accept", "Authorization")
-                .exposedHeaders("Authorization")
+                .exposedHeaders("Authorization", "Other-Header")
                 .allowCredentials(true);
     }
 }

@@ -81,13 +81,17 @@ public class TheRestController {
 
     @GetMapping("/rounds")
     public List<RoundDTO> getRounds() {
-        System.out.println("inside the get ROUND method from controller");
         return roundService.getRounds();
     }
 
     @GetMapping("/rounds/{roundId}")
     public RoundDTO getRound(@PathVariable int roundId) {
         return roundService.getRound(roundId);
+    }
+
+    @GetMapping("/rounds/findByNumber/{roundNumber}")
+    public RoundDTO getRoundByNumber(@PathVariable int roundNumber) {
+        return roundService.findByRoundNumber(roundNumber);
     }
 
     @DeleteMapping("/rounds/{roundId}")

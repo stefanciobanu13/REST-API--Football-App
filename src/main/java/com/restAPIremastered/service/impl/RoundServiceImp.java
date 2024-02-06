@@ -53,4 +53,11 @@ public class RoundServiceImp implements RoundService {
     public Round findByRoundDate(String roundDate) {
         return roundRepository.findByRoundDate(roundDate);
     }
+
+    @Override
+    public RoundDTO findByRoundNumber(int roundNumber) {
+        Round theRound = roundRepository.findByRoundNumber(roundNumber);
+        RoundDTO round = modelMapper.map(theRound,RoundDTO.class);
+         return round;
+    }
 }
