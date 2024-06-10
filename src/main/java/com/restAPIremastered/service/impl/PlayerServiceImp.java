@@ -73,5 +73,9 @@ public class PlayerServiceImp implements PlayerService {
 	public List<ScorerDTO> findOwnGoalsScorersByRoundId(int roundId) {
 		return playerRepository.findOwnGoalsScorersByRoundId(roundId);
 	}
+	@Transactional
+	public void flush() {
+		playerRepository.flush();
+	}
 
 }

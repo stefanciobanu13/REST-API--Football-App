@@ -57,14 +57,6 @@ public class TeamPlayer {
         this.player = player;
     }
 
-//    public Round getRound() {
-//        return round;
-//    }
-//
-//    public void setRound(Round round) {
-//        this.round = round;
-//    }
-
     public TeamPlayer(){}
 
     public TeamPlayer(int id, Team team, Player player) {
@@ -72,5 +64,14 @@ public class TeamPlayer {
         this.team = team;
         this.player = player;
         // this.round = round;
+    }
+
+    @Override
+    public String toString() {
+        return "TeamPlayer{" +
+                "id=" + id +
+                ", team=" + team +
+                ", player=" + player +
+                '}';
     }
 }

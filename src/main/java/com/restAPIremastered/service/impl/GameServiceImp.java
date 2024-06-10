@@ -51,11 +51,22 @@ public class GameServiceImp implements GameService {
     @Override
     @Transactional
     public void deleteGame(int gameId) {
-        gameRepository.deleteById(gameId);
+        try{
+            gameRepository.deleteById(gameId);
+            System.out.println("The game was deleted succesfully");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<GameInfoDTO> getGamesByRoundId(int roundId) {
         return gameRepository.getGamesInfoForRound(roundId);
+    }
+
+    @Override
+    @Transactional
+    public void flush() {
+        gameRepository.flush();
     }
 }

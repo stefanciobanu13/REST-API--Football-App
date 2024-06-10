@@ -1,8 +1,9 @@
 package com.restAPIremastered.rest;
 
 import com.restAPIremastered.persistance.dto.*;
-import com.restAPIremastered.persistance.entity.Player;
+import com.restAPIremastered.persistance.entity.*;
 import com.restAPIremastered.service.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -95,8 +96,40 @@ public class TheRestController {
     }
 
     @DeleteMapping("/rounds/{roundId}")
+    @Transactional
     public String deleteRound(@PathVariable int roundId) {
+
+        // Delete team players
+        List<TeamPlayer> attendance = teamPlayerService.getTeamPlayerByRoundId(roundId);
+        for (TeamPlayer tp : attendance) {
+            teamPlayerService.deleteTeamPlayer(tp.getId());
+            teamPlayerService.flush();
+        }
+
+        // Delete goals
+        List<GoalDTO> goals = goalService.getGoalsByRoundId(roundId);
+        for (GoalDTO goal : goals) {
+            goalService.deleteGoal(goal.getId());
+            goalService.flush();
+        }
+
+        // Delete games
+        List<GameInfoDTO> games = gameService.getGamesByRoundId(roundId);
+        for (GameInfoDTO game : games) {
+            gameService.deleteGame(game.getGameId());
+            gameService.flush();
+        }
+
+        // Delete teams
+        List<TeamDTO> teams = teamService2.getTeamsByRoundId(roundId);
+        for (TeamDTO team : teams) {
+            teamService2.deleteTeam(team.getId());
+            teamService2.flush();
+        }
+
+        // Delete the round
         roundService.deleteRound(roundId);
+
         return "The round with the id " + roundId + " was deleted";
     }
 
@@ -135,6 +168,11 @@ public class TheRestController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/teams/byRoundId/{roundId}")
+    public List<TeamDTO> getTeamsByRoundId(@PathVariable int roundId) {
+        return teamService2.getTeamsByRoundId(roundId);
+    }
     @DeleteMapping("/teams/{teamId}")
     public ResponseEntity<Void> deleteTeam(@PathVariable int teamId) {
         teamService2.deleteTeam(teamId);
@@ -161,6 +199,11 @@ public class TheRestController {
     public String saveTeamPlayer(@RequestBody TeamPlayerDTO teamPlayerDTO) {
         teamPlayerService.saveTeamPlayer(teamPlayerDTO);
         return "The team player with the id " + teamPlayerDTO.getId() + " was saved";
+    }
+
+    @GetMapping("/team-players/byRoundId/{roundId}")
+    public List<TeamPlayer> getTeamPlayerByRoundId(@PathVariable int roundId){
+        return this.teamPlayerService.getTeamPlayerByRoundId(roundId);
     }
 
     @GetMapping("/games")
@@ -210,6 +253,11 @@ public class TheRestController {
     public String saveGoal(@RequestBody GoalDTO goalDTO) {
         goalService.saveGoal(goalDTO);
         return "The goal with the id " + goalDTO.getId() + " was saved";
+    }
+
+    @GetMapping("/goals/byRoundId/{roundId}")
+    public List<GoalDTO> getGoalsByRoundId(@PathVariable int roundId) {
+        return goalService.getGoalsByRoundId(roundId);
     }
 
 }

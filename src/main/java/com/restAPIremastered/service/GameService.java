@@ -14,4 +14,6 @@ public interface GameService {
 
     void deleteGame(int gameId);
     List<GameInfoDTO> getGamesByRoundId(int roundId);
+
+    void flush();
 }

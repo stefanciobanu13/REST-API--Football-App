@@ -25,8 +25,6 @@ public class Round {
     private int number;
 
     //constructors
-
-
     public Round( int id, String date, int number) {
 
         this.id = id;
@@ -38,7 +36,6 @@ public class Round {
 
 
     //getters and setters
-
     public int getId() {
         return id;
     }

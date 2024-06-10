@@ -46,7 +46,25 @@ public class GoalServiceImp implements GoalService {
     @Override
     @Transactional
     public void deleteGoal(int goalId) {
-        goalDAO.deleteById(goalId);
+        try{
+            goalDAO.deleteById(goalId);
+        }catch (Exception e) {
+            System.out.println("The deletion of goal failed");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<GoalDTO> getGoalsByRoundId(int roundId) {
+        List<Goal> goals = goalDAO.getGoalsByRoundId(roundId);
+        return goals.stream()
+                .map(goal -> modelMapper.map(goal, GoalDTO.class))
+                .collect(Collectors.toList());
+    }
+    @Override
+    @Transactional
+    public void flush() {
+        goalDAO.flush();
     }
 }
 

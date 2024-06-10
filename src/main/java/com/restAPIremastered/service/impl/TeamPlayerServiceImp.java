@@ -48,4 +48,14 @@ public class TeamPlayerServiceImp implements TeamPlayerService {
     public void deleteTeamPlayer(int teamPlayerId) {
         teamPlayerRepository.deleteById(teamPlayerId);
     }
+
+    @Override
+    public List<TeamPlayer> getTeamPlayerByRoundId(int roundId) {
+        return teamPlayerRepository.getTeamPlayerByRoundId(roundId);
+    }
+    @Override
+    @Transactional
+    public void flush() {
+        teamPlayerRepository.flush();
+    }
 }

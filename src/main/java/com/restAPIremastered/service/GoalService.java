@@ -13,4 +13,8 @@ public interface GoalService {
     GoalDTO getGoal(int goalId);
 
     void deleteGoal(int goalId);
+
+    List<GoalDTO> getGoalsByRoundId(int roundId);
+
+    void flush();
 }

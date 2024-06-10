@@ -60,4 +60,9 @@ public class RoundServiceImp implements RoundService {
         RoundDTO round = modelMapper.map(theRound,RoundDTO.class);
          return round;
     }
+    @Override
+    @Transactional
+    public void flush() {
+        roundRepository.flush();
+    }
 }

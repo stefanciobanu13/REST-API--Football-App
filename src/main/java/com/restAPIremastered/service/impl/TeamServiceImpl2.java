@@ -58,4 +58,18 @@ public class TeamServiceImpl2 implements TeamService2 {
     private Team convertToEntity(TeamDTO teamDTO) {
         return modelMapper.map(teamDTO, Team.class);
     }
+
+    @Override
+    public List<TeamDTO> getTeamsByRoundId(int roundId) {
+        List<Team> teams = teamRepository.getTeamsByRoundId(roundId);
+        return teams.stream()
+                .map(team -> modelMapper.map(team, TeamDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public void flush() {
+        teamRepository.flush();
+    }
 }

@@ -17,5 +17,6 @@ public interface RoundService {
     void deleteRound(int theId);
      Round findByRoundDate(String roundDate);
      RoundDTO findByRoundNumber(int roundNumber);
+     void flush();
 
 }
