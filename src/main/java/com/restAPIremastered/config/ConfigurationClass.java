@@ -16,13 +16,13 @@ public class ConfigurationClass implements WebMvcConfigurer {
         return new ModelMapper();
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("Origin", "Content-Type", "Accept", "Authorization")
-                .exposedHeaders("Authorization", "Other-Header")
-                .allowCredentials(true);
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedOrigins("*")
+//                .allowedMethods("GET", "POST", "PUT", "DELETE")
+//                .allowedHeaders("Origin", "Content-Type", "Accept", "Authorization")
+//                .exposedHeaders("Authorization", "Other-Header")
+//                .allowCredentials(true);
+//    }
 }

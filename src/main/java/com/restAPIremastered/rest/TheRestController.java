@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class TheRestController {
 
 
@@ -22,6 +23,7 @@ public class TheRestController {
     private final TeamPlayerService teamPlayerService;
     private final GameService gameService;
     private final GoalService goalService;
+
 
 
     @GetMapping("/players")
