@@ -26,7 +26,7 @@ public class TheRestController {
 
     @GetMapping("/players")
     public List<Player> getPlayers(){
-
+        System.out.println("inside getPlayers");
         return playerService.getPlayers();
     }
 

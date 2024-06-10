@@ -27,6 +27,7 @@ public class PlayerServiceImp implements PlayerService {
 	@Transactional
 	@Override
 	public List<Player> getPlayers() {
+		System.out.println("inside getPlayers");
 
 		return playerRepository.findAll();
 	}
