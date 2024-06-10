@@ -15,8 +15,6 @@ public class GameDTO {
     private int team2Goals;
     private int number;
 
-    // Constructors, getters, setters
-
 
     public GameDTO() {
 
