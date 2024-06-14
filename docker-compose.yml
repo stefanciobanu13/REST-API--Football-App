@@ -1,8 +1,38 @@
+#version: '3.8'
+#
+#services:
+#  mysqldb3:
+#    container_name: mysqldb3
+#    image: mysql:latest
+#    environment:
+#      MYSQL_DATABASE: fotball-db
+#      MYSQL_ROOT_PASSWORD: hbstudent
+#      MYSQL_PASSWORD: hbstudent
+#      MYSQL_USER: hbstudent
+#    volumes:
+#      - C:\GitRepositories\rest.api.remastered\be-tools\db\init.sql:/docker-entrypoint-initdb.d/init.sql
+#      - C:\GitRepositories\rest.api.remastered\be-tools/db/init2.sql:/docker-entrypoint-initdb2.d/init2.sql
+#
+#    ports:
+#      - "3306:3306"
+#  myapp:
+#    container_name: restAPI
+#    build:
+#      context: .
+#    ports:
+#      - "8083:8083"
+#    depends_on:
+#      - mysqldb3
+#
 version: '3.8'
 
+networks:
+  springboot-mysql-net:
+    driver: bridge
+
 services:
-  mysqldb3:
-    container_name: mysqldb3
+  mysqldb2:
+    container_name: database
     image: mysql:latest
     environment:
       MYSQL_DATABASE: fotball-db
@@ -10,22 +40,33 @@ services:
       MYSQL_PASSWORD: hbstudent
       MYSQL_USER: hbstudent
     volumes:
-      - C:\GitRepositories\rest.api.remastered\be-tools\db\init.sql:/docker-entrypoint-initdb.d/init.sql
-      - C:\GitRepositories\rest.api.remastered\be-tools/db/init2.sql:/docker-entrypoint-initdb2.d/init2.sql
-
+      - C:\GitRepositories\be-tools\db\init.sql:/docker-entrypoint-initdb.d/init.sql
+      - C:\GitRepositories\be-tools/db/init3.sql:/docker-entrypoint-initdb3.d/init3.sql
+    networks:
+      - springboot-mysql-net
     ports:
-      - "3306:3306"
-  myapp:
+      - "3307:3307"
+  backend:
     container_name: restAPI
     build:
       context: .
-    ports:
-      - "8083:8083"
-    depends_on:
-      - mysqldb3
-        
-        
 
+    ports:
+      - "8084:8084"
+    networks:
+      - springboot-mysql-net
+    depends_on:
+      - mysqldb2
+  frontend:
+    container_name: angular
+    build:
+      context: C:\GitRepositories\AppAngularProject\fotball-app-ang
+    ports:
+      - "8081:8081"
+    networks:
+      - springboot-mysql-net
+    depends_on:
+      - backend
 
 
 
