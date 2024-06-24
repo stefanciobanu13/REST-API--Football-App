@@ -56,4 +56,15 @@ public class GameInfoDTO {
     public void setTeam2Goals(int team2Goals) {
         this.team2Goals = team2Goals;
     }
+
+    @Override
+    public String toString() {
+        return "GameInfoDTO{" +
+                "gameId=" + gameId +
+                ", team1Color='" + team1Color + '\'' +
+                ", team2Color='" + team2Color + '\'' +
+                ", team1Goals=" + team1Goals +
+                ", team2Goals=" + team2Goals +
+                '}';
+    }
 }

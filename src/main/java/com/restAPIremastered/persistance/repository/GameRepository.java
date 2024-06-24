@@ -12,7 +12,7 @@ import java.util.List;
 public interface GameRepository extends JpaRepository<Game,Integer> {
 
     @Query("SELECT new com.restAPIremastered.persistance.dto.GameInfoDTO(" +
-            "g.number, t1.color, t2.color, g.team1Goals, g.team2Goals) " +
+            "g.id, t1.color, t2.color, g.team1Goals, g.team2Goals) " +
             "FROM Game g " +
             "JOIN Team t1 ON g.team1.id = t1.id " +
             "JOIN Team t2 ON g.team2.id = t2.id " +

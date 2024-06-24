@@ -53,7 +53,7 @@ public class GameServiceImp implements GameService {
     public void deleteGame(int gameId) {
         try{
             gameRepository.deleteById(gameId);
-            System.out.println("The game was deleted succesfully");
+            System.out.println("The game" + " " + gameId+ " was deleted succesfully");
         }catch (Exception e){
             e.printStackTrace();
         }

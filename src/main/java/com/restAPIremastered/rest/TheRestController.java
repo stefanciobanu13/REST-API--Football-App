@@ -101,21 +101,29 @@ public class TheRestController {
 
         // Delete team players
         List<TeamPlayer> attendance = teamPlayerService.getTeamPlayerByRoundId(roundId);
+        if(attendance != null){
         for (TeamPlayer tp : attendance) {
             teamPlayerService.deleteTeamPlayer(tp.getId());
             teamPlayerService.flush();
+             }
         }
 
         // Delete goals
         List<GoalDTO> goals = goalService.getGoalsByRoundId(roundId);
+        for(GoalDTO gl :goals){
+            System.out.println(gl);
+        }
         for (GoalDTO goal : goals) {
+            System.out.println(goal);
             goalService.deleteGoal(goal.getId());
             goalService.flush();
         }
 
         // Delete games
         List<GameInfoDTO> games = gameService.getGamesByRoundId(roundId);
+        System.out.println("Round is is" + " " + roundId);
         for (GameInfoDTO game : games) {
+            System.out.println(game);
             gameService.deleteGame(game.getGameId());
             gameService.flush();
         }

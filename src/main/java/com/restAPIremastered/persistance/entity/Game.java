@@ -124,4 +124,5 @@ public class Game {
     public void setTeam2Goals(int team2Goals) {
         this.team2Goals = team2Goals;
     }
+
 }
